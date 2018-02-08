@@ -3,7 +3,7 @@
 - [Introdução](#introduction)
 - [Escrevendo Seeders](#writing-seeders)
     - [Usando Model Factories](#using-model-factories)
-    - [Calling Additional Seeders](#calling-additional-seeders)
+    - [Chamando Seeders Adicionais](#calling-additional-seeders)
 - [Running Seeders](#running-seeders)
 
 <a name="introduction"></a>
@@ -66,9 +66,9 @@ Por exemplo, crie 50 usuários e atribua um relacionamento a cada usuário:
     }
 
 <a name="calling-additional-seeders"></a>
-### Calling Additional Seeders
+### Chamando Seeders Adicionais
 
-Within the `DatabaseSeeder` class, you may use the `call` method to execute additional seed classes. Using the `call` method allows you to break up your database seeding into multiple files so that no single seeder class becomes overwhelmingly large. Simply pass the name of the seeder class you wish to run:
+Dentro da classe `DatabaseSeeder`, você pode usar o método `call` para executar classes seeders adicionais. O uso do método `call` permite que você separe seu banco de dados em vários arquivos, de modo que nenhuma classe seeder simples seja grande. Basta passear o nome da classe seeder que deseja executar:
 
     /**
      * Run the database seeds.
