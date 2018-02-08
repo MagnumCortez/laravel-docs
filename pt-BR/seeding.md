@@ -1,15 +1,15 @@
 # Database: Seeding
 
-- [Introduction](#introduction)
+- [Introdução](#introduction)
 - [Writing Seeders](#writing-seeders)
     - [Using Model Factories](#using-model-factories)
     - [Calling Additional Seeders](#calling-additional-seeders)
 - [Running Seeders](#running-seeders)
 
 <a name="introduction"></a>
-## Introduction
+## Introdução
 
-Laravel includes a simple method of seeding your database with test data using seed classes. All seed classes are stored in the `database/seeds` directory. Seed classes may have any name you wish, but probably should follow some sensible convention, such as `UsersTableSeeder`, etc. By default, a `DatabaseSeeder` class is defined for you. From this class, you may use the `call` method to run other seed classes, allowing you to control the seeding order.
+O Laravel inclui um método simples de criar seu banco de dados com dados de testes usando classes _seeder_. Todas as classes _seeder_ são armazenadas no diretório `database/seeds`. As classes de semente podem ter qualquer nome que você deseja, mas provavelmente deve seguir uma convenção sensata, como `UsersTableSeeder`, etc. Por padrão, uma classe `DatabaseSeeder` está definida para você. Nesta classe, você pode usar o método `call` para executar outras classes _seeder_, permitindo que você controle a ordem da execução.
 
 <a name="writing-seeders"></a>
 ## Writing Seeders
