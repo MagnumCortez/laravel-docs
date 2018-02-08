@@ -2,7 +2,7 @@
 
 - [Introdução](#introduction)
 - [Escrevendo Seeders](#writing-seeders)
-    - [Using Model Factories](#using-model-factories)
+    - [Usando Model Factories](#using-model-factories)
     - [Calling Additional Seeders](#calling-additional-seeders)
 - [Running Seeders](#running-seeders)
 
@@ -47,11 +47,11 @@ Como um exemplo, vamos modificar a classe padrão `DatabaseSeeder` e adicionar u
     }
 
 <a name="using-model-factories"></a>
-### Using Model Factories
+### Usando Model Factories
 
-Of course, manually specifying the attributes for each model seed is cumbersome. Instead, you can use [model factories](/docs/{{version}}/database-testing#writing-factories) to conveniently generate large amounts of database records. First, review the [model factory documentation](/docs/{{version}}/database-testing#writing-factories) to learn how to define your factories. Once you have defined your factories, you may use the `factory` helper function to insert records into your database.
+Claro, especificar manualmente os atributos para cada seeder é complicado. Em vez disso, você pode usar [model factories](/docs/{{version}}/database-testing#writing-factories) para gerar, grandes quantidades de registros de banco de dados. Primeiro reveja a [documentação do model factory documentation](/docs/{{version}}/database-testing#writing-factories) para aprender como criar suas factories. Uma vez que você definiu suas factories, você pode usar a função helper `factory` para inserir registros no seu banco.
 
-For example, let's create 50 users and attach a relationship to each user:
+Por exemplo, crie 50 usuários e atribua um relacionamento a cada usuário:
 
     /**
      * Run the database seeds.
