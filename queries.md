@@ -127,6 +127,14 @@ Of course, you may combine these methods with other clauses:
                     ->where('finalized', 1)
                     ->avg('price');
 
+#### Determining If Records Exist
+
+Instead of using the `count` method to determine if any records exist that match your query's constraints, you may use the `exists` and `doesntExist` methods:
+
+    return DB::table('orders')->where('finalized', 1)->exists();
+
+    return DB::table('orders')->where('finalized', 1)->doesntExist();
+
 <a name="selects"></a>
 ## Selects
 
@@ -272,7 +280,7 @@ For example, here is a query that verifies the value of the "votes" column is eq
 
     $users = DB::table('users')->where('votes', '=', 100)->get();
 
-For convenience, if you simply want to verify that a column is equal to a given value, you may pass the value directly as the second argument to the `where` method:
+For convenience, if you want to verify that a column is equal to a given value, you may pass the value directly as the second argument to the `where` method:
 
     $users = DB::table('users')->where('votes', 100)->get();
 
@@ -587,7 +595,7 @@ When updating a JSON column, you should use `->` syntax to access the appropriat
 <a name="increment-and-decrement"></a>
 ### Increment & Decrement
 
-The query builder also provides convenient methods for incrementing or decrementing the value of a given column. This is simply a shortcut, providing a more expressive and terse interface compared to manually writing the `update` statement.
+The query builder also provides convenient methods for incrementing or decrementing the value of a given column. This is a shortcut, providing a more expressive and terse interface compared to manually writing the `update` statement.
 
 Both of these methods accept at least one argument: the column to modify. A second argument may optionally be passed to control the amount by which the column should be incremented or decremented:
 

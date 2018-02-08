@@ -7,6 +7,7 @@
     - [Driver Prerequisites](#driver-prerequisites)
 - [Obtaining Disk Instances](#obtaining-disk-instances)
 - [Retrieving Files](#retrieving-files)
+    - [Downloading Files](#downloading-files)
     - [File URLs](#file-urls)
     - [File Metadata](#file-metadata)
 - [Storing Files](#storing-files)
@@ -24,7 +25,7 @@ Laravel provides a powerful filesystem abstraction thanks to the wonderful [Flys
 <a name="configuration"></a>
 ## Configuration
 
-The filesystem configuration file is located at `config/filesystems.php`. Within this file you may configure all of your "disks". Each disk represents a particular storage driver and storage location. Example configurations for each supported driver are included in the configuration file. So, simply modify the configuration to reflect your storage preferences and credentials.
+The filesystem configuration file is located at `config/filesystems.php`. Within this file you may configure all of your "disks". Each disk represents a particular storage driver and storage location. Example configurations for each supported driver are included in the configuration file. So, modify the configuration to reflect your storage preferences and credentials.
 
 Of course, you may configure as many disks as you like, and may even have multiple disks that use the same driver.
 
@@ -118,6 +119,15 @@ The `exists` method may be used to determine if a file exists on the disk:
 
     $exists = Storage::disk('s3')->exists('file.jpg');
 
+<a name="downloading-files"></a>
+### Downloading Files
+
+The `download` method may be used to generate a response that forces the user's browser to download the file at the given path. The `download` method accepts a file name as the second argument to the method, which will determine the file name that is seen by the user downloading the file. Finally, you may pass an array of HTTP headers as the third argument to the method:
+
+    return Storage::download('file.jpg');
+
+    return Storage::download('file.jpg', $name, $headers);
+
 <a name="file-urls"></a>
 ### File URLs
 
@@ -125,7 +135,7 @@ You may use the `url` method to get the URL for the given file. If you are using
 
     use Illuminate\Support\Facades\Storage;
 
-    $url = Storage::url('file1.jpg');
+    $url = Storage::url('file.jpg');
 
 > {note} Remember, if you are using the `local` driver, all files that should be publicly accessible should be placed in the `storage/app/public` directory. Furthermore, you should [create a symbolic link](#the-public-disk) at `public/storage` which points to the `storage/app/public` directory.
 
@@ -134,7 +144,7 @@ You may use the `url` method to get the URL for the given file. If you are using
 For files stored using the `s3` or `rackspace` driver, you may create a temporary URL to a given file using the `temporaryUrl` method. This methods accepts a path and a `DateTime` instance specifying when the URL should expire:
 
     $url = Storage::temporaryUrl(
-        'file1.jpg', now()->addMinutes(5)
+        'file.jpg', now()->addMinutes(5)
     );
 
 #### Local URL Host Customization
@@ -155,11 +165,11 @@ In addition to reading and writing files, Laravel can also provide information a
 
     use Illuminate\Support\Facades\Storage;
 
-    $size = Storage::size('file1.jpg');
+    $size = Storage::size('file.jpg');
 
 The `lastModified` method returns the UNIX timestamp of the last time the file was modified:
 
-    $time = Storage::lastModified('file1.jpg');
+    $time = Storage::lastModified('file.jpg');
 
 <a name="storing-files"></a>
 ## Storing Files
@@ -203,14 +213,14 @@ The `prepend` and `append` methods allow you to write to the beginning or end of
 
 The `copy` method may be used to copy an existing file to a new location on the disk, while the `move` method may be used to rename or move an existing file to a new location:
 
-    Storage::copy('old/file1.jpg', 'new/file1.jpg');
+    Storage::copy('old/file.jpg', 'new/file.jpg');
 
-    Storage::move('old/file1.jpg', 'new/file1.jpg');
+    Storage::move('old/file.jpg', 'new/file.jpg');
 
 <a name="file-uploads"></a>
 ### File Uploads
 
-In web applications, one of the most common use-cases for storing files is storing user uploaded files such as profile pictures, photos, and documents. Laravel makes it very easy to store uploaded files using the `store` method on an uploaded file instance. Simply call the `store` method with the path at which you wish to store the uploaded file:
+In web applications, one of the most common use-cases for storing files is storing user uploaded files such as profile pictures, photos, and documents. Laravel makes it very easy to store uploaded files using the `store` method on an uploaded file instance. Call the `store` method with the path at which you wish to store the uploaded file:
 
     <?php
 
@@ -289,7 +299,7 @@ The `delete` method accepts a single filename or an array of files to remove fro
 
     Storage::delete('file.jpg');
 
-    Storage::delete(['file1.jpg', 'file2.jpg']);
+    Storage::delete(['file.jpg', 'file2.jpg']);
 
 If necessary, you may specify the disk that the file should be deleted from:
 

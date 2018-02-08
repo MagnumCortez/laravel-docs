@@ -17,13 +17,14 @@
 - [Route Model Binding](#route-model-binding)
     - [Implicit Binding](#implicit-binding)
     - [Explicit Binding](#explicit-binding)
+- [Rate Limiting](#rate-limiting)
 - [Form Method Spoofing](#form-method-spoofing)
 - [Accessing The Current Route](#accessing-the-current-route)
 
 <a name="basic-routing"></a>
 ## Basic Routing
 
-The most basic Laravel routes simply accept a URI and a `Closure`, providing a very simple and expressive method of defining routes:
+The most basic Laravel routes accept a URI and a `Closure`, providing a very simple and expressive method of defining routes:
 
     Route::get('foo', function () {
         return 'Hello World';
@@ -65,7 +66,7 @@ Sometimes you may need to register a route that responds to multiple HTTP verbs.
 Any HTML forms pointing to `POST`, `PUT`, or `DELETE` routes that are defined in the `web` routes file should include a CSRF token field. Otherwise, the request will be rejected. You can read more about CSRF protection in the [CSRF documentation](/docs/{{version}}/csrf):
 
     <form method="POST" action="/profile">
-        {{ csrf_field() }}
+        @csrf
         ...
     </form>
 
@@ -338,6 +339,27 @@ If you wish to use your own resolution logic, you may use the `Route::bind` meth
         });
     }
 
+<a name="rate-limiting"></a>
+## Rate Limiting
+
+Laravel includes a [middleware](/docs/{{version}}/middleware) to rate limit access to routes within your application. To get started, assign the `throttle` middleware to a route or a group of routes. The `throttle` middleware accepts two parameters that determine the maximum number of requests that can be made in a given number of minutes. For example, let's specify that an authenticated user may access the following group of routes 60 times per minute:
+
+    Route::middleware('auth:api', 'throttle:60,1')->group(function () {
+        Route::get('/user', function () {
+            //
+        });
+    });
+
+#### Dynamic Rate Limiting
+
+You may specify a dynamic request maximum based on an attribute of the authenticated `User` model. For example, if your `User` model contains a `rate_limit` attribute, you may pass the name of the attribute to the `throttle` middleware so that it is used to calculate the maximum request count:
+
+    Route::middleware('auth:api', 'throttle:rate_limit,1')->group(function () {
+        Route::get('/user', function () {
+            //
+        });
+    });
+
 <a name="form-method-spoofing"></a>
 ## Form Method Spoofing
 
@@ -348,9 +370,11 @@ HTML forms do not support `PUT`, `PATCH` or `DELETE` actions. So, when defining 
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
     </form>
 
-You may use the `method_field` helper to generate the `_method` input:
+You may use the `@method` Blade directive to generate the `_method` input:
 
-    {{ method_field('PUT') }}
+    <form action="/foo/bar" method="POST">
+        @method('PUT')
+    </form>
 
 <a name="accessing-the-current-route"></a>
 ## Accessing The Current Route

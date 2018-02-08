@@ -79,6 +79,10 @@ As an alternative to mocking, you may use the `Event` facade's `fake` method to 
                 return $e->order->id === $order->id;
             });
 
+            // Assert an event was dispatched twice...
+            Event::assertDispatched(OrderShipped::class, 2);
+
+            // Assert an event was not dispatched...
             Event::assertNotDispatched(OrderFailedToShip::class);
         }
     }
@@ -298,4 +302,4 @@ We can mock the call to the `Cache` facade by using the `shouldReceive` method, 
         }
     }
 
-> {note} You should not mock the `Request` facade. Instead, pass the input you desire into the HTTP helper methods such as `get` and `post` when running your test. Likewise, instead of mocking the `Config` facade, simply call the `Config::set` method in your tests.
+> {note} You should not mock the `Request` facade. Instead, pass the input you desire into the HTTP helper methods such as `get` and `post` when running your test. Likewise, instead of mocking the `Config` facade, call the `Config::set` method in your tests.

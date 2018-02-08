@@ -88,6 +88,7 @@ Laravel includes a variety of global "helper" PHP functions. Many of these funct
 [str_finish](#method-str-finish)
 [str_is](#method-str-is)
 [str_limit](#method-str-limit)
+[Str::orderedUuid](#method-str-ordered-uuid)
 [str_plural](#method-str-plural)
 [str_random](#method-str-random)
 [str_replace_array](#method-str-replace-array)
@@ -100,6 +101,7 @@ Laravel includes a variety of global "helper" PHP functions. Many of these funct
 [title_case](#method-title-case)
 [trans](#method-trans)
 [trans_choice](#method-trans-choice)
+[Str::uuid](#method-str-uuid)
 
 </div>
 
@@ -704,7 +706,7 @@ The `__` function translates the given translation string or translation key usi
 
     echo __('messages.welcome');
 
-If the specified translation string or key does not exist, the `__` function will simply return the given value. So, using the example above, the `__` function would return `messages.welcome` if that translation key does not exist.
+If the specified translation string or key does not exist, the `__` function will return the given value. So, using the example above, the `__` function would return `messages.welcome` if that translation key does not exist.
 
 <a name="method-camel-case"></a>
 #### `camel_case()` {#collection-method}
@@ -801,7 +803,7 @@ The `str_before` function returns everything before the given value in a string:
 <a name="method-str-contains"></a>
 #### `str_contains()` {#collection-method}
 
-The `str_contains` function determines if the given string contains the given value:
+The `str_contains` function determines if the given string contains the given value (case sensitive):
 
     $contains = str_contains('This is my name', 'my');
 
@@ -853,6 +855,15 @@ You may also pass a third argument to change the string that will be appended to
     $truncated = str_limit('The quick brown fox jumps over the lazy dog', 20, ' (...)');
 
     // The quick brown fox (...)
+
+<a name="method-str-ordered-uuid"></a>
+#### `Str::orderedUuid()` {#collection-method}
+
+The `Str::orderedUuid` method generates a "timestamp first" UUID that may be efficiently stored in an indexed database column:
+
+    use Illuminate\Support\Str;
+
+    return (string) Str::orderedUuid();
 
 <a name="method-str-plural"></a>
 #### `str_plural()` {#collection-method}
@@ -973,7 +984,7 @@ The `trans` function translates the given translation key using your [localizati
 
     echo trans('messages.welcome');
 
-If the specified translation key does not exist, the `trans` function will simply return the given key. So, using the example above, the `trans` function would return `messages.welcome` if the translation key does not exist.
+If the specified translation key does not exist, the `trans` function will return the given key. So, using the example above, the `trans` function would return `messages.welcome` if the translation key does not exist.
 
 <a name="method-trans-choice"></a>
 #### `trans_choice()` {#collection-method}
@@ -982,7 +993,16 @@ The `trans_choice` function translates the given translation key with inflection
 
     echo trans_choice('messages.notifications', $unreadCount);
 
-If the specified translation key does not exist, the `trans_choice` function will simply return the given key. So, using the example above, the `trans_choice` function would return `messages.notifications` if the translation key does not exist.
+If the specified translation key does not exist, the `trans_choice` function will return the given key. So, using the example above, the `trans_choice` function would return `messages.notifications` if the translation key does not exist.
+
+<a name="method-str-uuid"></a>
+#### `Str::uuid()` {#collection-method}
+
+The `Str::uuid` method generates a UUID (version 4):
+
+    use Illuminate\Support\Str;
+
+    return (string) Str::uuid();
 
 <a name="urls"></a>
 ## URLs
@@ -1363,7 +1383,7 @@ The `old` function [retrieves](/docs/{{version}}/requests#retrieving-input) an [
 <a name="method-optional"></a>
 #### `optional()` {#collection-method}
 
-The `optional` function accepts any argument and allows you to access properties or call methods on that object. If the given object is `null`, properties and methods will simply return `null` instead of causing an error:
+The `optional` function accepts any argument and allows you to access properties or call methods on that object. If the given object is `null`, properties and methods will return `null` instead of causing an error:
 
     return optional($user->address)->street;
 
@@ -1401,7 +1421,7 @@ The `request` function returns the current [request](/docs/{{version}}/requests)
 
     $request = request();
 
-    $value = request('key', $default = null);
+    $value = request('key', $default);
 
 <a name="method-rescue"></a>
 #### `rescue()` {#collection-method}
