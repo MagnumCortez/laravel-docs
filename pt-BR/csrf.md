@@ -12,10 +12,10 @@ O Laravel facilita a proteção da sua aplicação contra ataques [cross-site re
 
 O Laravel gera automaticamente um token "CSRF" para cada sessão de usuário ativa, que é gerenciada pela aplicação. Este token é usado para verificar se o usuário autenticado é aquele que realmente faz as requisições na aplicação.
 
-Sempre que você definir um formulário HTML na sua aplicação, você deve incluir um campo token CSRF oculto no formulário para que o middleware de proteção CSRF possa validar a solicitação. Você pode ajudar o _helper_ `csrf_field` para gerar o campo token:
+Sempre que você definir um formulário HTML na sua aplicação, você deve incluir um campo token CSRF oculto no formulário para que o middleware de proteção CSRF possa validar a solicitação. Você pode usar a diretiva Blade `@csrf` para gerar o campo token:
 
     <form method="POST" action="/profile">
-        {{ csrf_field() }}
+        @csrf
         ...
     </form>
 
