@@ -4,7 +4,7 @@
 - [Escrevendo Seeders](#writing-seeders)
     - [Usando Model Factories](#using-model-factories)
     - [Chamando Seeders Adicionais](#calling-additional-seeders)
-- [Running Seeders](#running-seeders)
+- [Executando Seeders](#running-seeders)
 
 <a name="introduction"></a>
 ## Introdução
@@ -85,18 +85,18 @@ Dentro da classe `DatabaseSeeder`, você pode usar o método `call` para executa
     }
 
 <a name="running-seeders"></a>
-## Running Seeders
+## Executado Seeders
 
-Once you have written your seeder, you may need to regenerate Composer's autoloader using the `dump-autoload` command:
+Depois de escrito sua classe seeder, talvez seja necessário regenerar o auatoload do Composer usando o comando `dump-autoload`:
 
     composer dump-autoload
 
-Now you may use the `db:seed` Artisan command to seed your database. By default, the `db:seed` command runs the `DatabaseSeeder` class, which may be used to call other seed classes. However, you may use the `--class` option to specify a specific seeder class to run individually:
+Agora você pode usar o comando do Artisan `db:seed`. Por padrão, o comando `db:seed` executa a classe `DatabaseSeeder`, que pode ser usada para chamar outras classes seeder. No entanto, você pode usar a opçao `--class` para especificar uma classe seeder que deseja executar individualmente:
 
     php artisan db:seed
 
     php artisan db:seed --class=UsersTableSeeder
 
-You may also seed your database using the `migrate:refresh` command, which will also rollback and re-run all of your migrations. This command is useful for completely re-building your database:
+Você também pode gerar os dados no banco de dados usando o comando `migrate:refresh`, que também irá reverter e executar novamente as suas migrations. Este comando é útil para reconstruir completamente seu banco de dados:
 
     php artisan migrate:refresh --seed
